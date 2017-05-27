@@ -1,0 +1,4 @@
+# Runs remove background, on oldTops and oldBottoms, automatically
+# Saves images to new Folders (namely: Tops, Bottoms)
+# Access Tops, Bottoms using Java code
+# Drag and drop.
