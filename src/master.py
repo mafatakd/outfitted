@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import os
 import copy
+import subprocess
 
 def remove_background(imagePath):
 	#cv2.namedWindow('image', cv2.WINDOW_NORMAL)
@@ -51,7 +52,7 @@ def images_iterator(imgsPath,finalPath):
 		os.rename(imgsPath + newimgName+ '-editted' + '.jpg', finalPath + imgs[i])#+ '-editted' + '.jpg')
 
 def main():
-	path = '/media/sf_ubuntu-sf/outfitted/other/'
+	path = '/media/sf_ubuntu-sf/outfitted/'
 	oldtopsDir = path + 'oldTops/' 
 	oldbotsDir = path + 'oldBottoms/'
 	topsDir = path + 'Tops/'
@@ -61,3 +62,4 @@ def main():
 	
 if __name__ == '__main__':
 	main()
+	subprocess.call(['java','-jar','Outfitter.jar'])
