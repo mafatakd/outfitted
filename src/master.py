@@ -1,11 +1,8 @@
 import numpy as np
 import cv2
 import os
-import copy
-import subprocess
 
 def remove_background(imagePath):
-	#cv2.namedWindow('image', cv2.WINDOW_NORMAL)
 	#print("Load the Image")
 	imgo = cv2.imread(imagePath)
 	height, width = imgo.shape[:2]
@@ -31,26 +28,25 @@ def remove_background(imagePath):
 	#print("Change all pixels in the background that are not black to white")
 	background[np.where((background > [0,0,0]).all(axis = 2))] = [255,255,255]
 
-	#print("Add the background and the image")
+	print("Add the background and the image")
 	final = background + img1
+	# gray = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
+	# _,thresh = cv2.threshold(gray,1,255,cv2.THRESH_BINARY)
+	# _,contours,hierarchy = cv2.findContours(thresh,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+	# x,y,w,h = cv2.boundingRect(contours[0])
+	# crop = final[y:y+h,x:x+w]
 
-
-	# cv2.imshow('image', final) # debug statement
 	newPath = ('.').join(imagePath.split('.')[:-1])
 	cv2.imwrite(newPath + '-editted' + '.jpg',final)
-	# k = cv2.waitKey(0)	# debug statement
-	# if k==27: # debug statement
-	#     cv2.destroyAllWindows() # debug statement
 
 
 def images_iterator(imgsPath,finalPath):
 	imgs = os.listdir(imgsPath)
-	print imgs
 	for i in range (0, len(imgs)):
 		remove_background(imgsPath + '\\' + imgs[i])
 		newimgName = ('.').join(imgs[i].split('.')[:-1])
-		
-		os.rename(imgsPath + newimgName+ '-editted' + '.jpg', finalPath + imgs[i])#+ '-editted' + '.jpg')
+
+		os.rename(imgsPath + newimgName+ '-editted' + '.jpg', finalPath + imgs[i])
 
 def main():
 	path = 'C:\Users\Murtaza\ubuntu-sf\outfitted\\'
